@@ -45,7 +45,10 @@ public class HasBadges implements Feature<HasBadges.Badges> {
 
 		public Badges(Iterator<GroovyPostbuildAction> badgeActions) {
         	while (badgeActions.hasNext()) {
-        		badges.add(new Badge(badgeActions.next()));
+				GroovyPostbuildAction postbuildAction = badgeActions.next();
+				if (!postbuildAction.getText().contains("href")) {
+					badges.add(new Badge(postbuildAction));
+				}
         	}
 		}
 		
